@@ -33,12 +33,11 @@ def instructions():
     global mode
     print('\nNOTE:\nIf you see a pygame message but no window, you may have to find the window on your computer.')
     ins = ['Welcome to Pahan\'s Python Ping-Pong Game! ',
-           'This code was created using object-oriented programming and pygame. ',
-           'Use W and S keys to move left paddle, Up/Down arrows for right paddle. ',
-           'You can see scores and total hits of the current round at the top. ',
-           'Use space to reset, Esc key / close to exit. ',
-           '{p: person vs person, s: AI showdown, f: AI showdown but the paddles are fast',
-           'person (right) vs computer (left): e=easy, m=medium, h=hard, a=AI}',
+           'Left Paddle: W/S keys, Right Paddle: Up/Down arrows',
+           'You can see scores and total hits in the ongoing point at the top.',
+           'Press space to reset the score and R to come back to this menu.',
+           'human (right) vs computer (left): e=easy, m=medium, h=hard, a=AI',
+           'p: human vs human, s: AI showdown',
            'Press the corresponding key from above to play!']
     for i in range(0, len(ins)):
         text = font.render(ins[i], True, white)
@@ -69,8 +68,10 @@ def instructions():
         if keys[pygame.K_f]:
             mode = 'f'
             break
-        if keys[pygame.K_ESCAPE]:
-            pygame.quit()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.QUIT()
+                sys.exit()
 
 
 def printscore(totalhits, lscore, rscore, x, y, scoredist):
@@ -112,7 +113,7 @@ class Ball:
         self.sidedirchange = 60 # 60
         self.defaultSpeed = {'e':200,'m':250,'h':300,'a':350,'p':250,'s':350,'f':350}[mode] # pixels per sec
         self.speed = self.defaultSpeed
-        self.speedIncrease = 15 # 50
+        self.speedIncrease = 15 # 15
         if random.random() < .5:
             self.dir = random.randint(-self.sidedirchange, self.sidedirchange)
         else:
@@ -205,7 +206,7 @@ class Ball:
                 self.dir = random.randint(-self.sidedirchange, self.sidedirchange)
             else:
                 self.dir = random.randint(180 - self.sidedirchange, 180 + self.sidedirchange)
-            print('Total hits:',totalhits)
+            # print('Total hits:',totalhits)
             totalhits = 0
 
         self.speed = self.speed + self.speedIncrease / updateSpeed
@@ -349,6 +350,15 @@ while True:
         lscore, rscore, totalhits = 0, 0, 0
         reset = True
     else: reset = False
+
+    if pygame.key.get_pressed()[pygame.K_r]:
+        screen.fill(black)
+        instructions()
+        ball = Ball()
+        leftPaddle = Paddle(0, 'w', 's')
+        rightPaddle = Paddle(screen_coord[0] - paddlewidth, 'uparrow', 'downarrow')
+        prevtime, resettime, lscore, rscore, reset = 0, 0, 0, 0, 0
+        three21()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
