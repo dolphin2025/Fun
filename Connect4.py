@@ -257,18 +257,18 @@ def end(mode, winner, font):
                 (xpos + int(sqsize * (i + .5)) - dlw, ypos + int(sqsize * (j + .5)) - dlw)))
     if mode == 'p':
         if winner == 1:
-            text = 'Player 1 (Red) wins!.'
+            text = 'Player 1 (Red) wins!'
         if winner == 2:
-            text = 'Player 2 (Yellow) wins!.'
+            text = 'Player 2 (Yellow) wins!'
         if winner == 3:
-            text = 'It\'s a draw!.'
+            text = 'It\'s a draw!'
     if mode == 'c':
         if winner == 1:
-            text = 'Computer (Yellow) wins!.'
+            text = 'Computer (Yellow) wins!'
         if winner == 2:
-            text = 'Player (Red) wins!.'
+            text = 'Player (Red) wins!'
         if winner == 3:
-            text = 'It\'s a draw!.'
+            text = 'It\'s a draw!'
     screen.blit(font.render(text, True, (250, 250, 250)), (150, 90))
     pygame.display.update()
     time.sleep(5)
