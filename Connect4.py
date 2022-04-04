@@ -30,7 +30,7 @@ def instructions(font):
            'Currently, only 2-player is available',
            'To place your piece, click on the column you would like to place your piece in.',
            'The player who gets 4 in a row (vertical, horizontal, diagonal) first wins.',
-           'Remember that there gravity exists!',
+           'Remember that gravity exists!',
            'Press p to play!']
 
     for i in range(0, len(ins)):
